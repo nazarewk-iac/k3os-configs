@@ -1,0 +1,19 @@
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: kernel-modules
+spec:
+  concurrency: 2
+  nodeSelector:
+    matchExpressions:
+    - key: node-role.kubernetes.io/worker
+      operator: In
+      values: ["true"]
+  secrets:
+  - name: kernel-modules
+    path: /host/run/system-upgrade/secrets/bionic
+  version: latest
+  upgrade:
+    image: registry.fedoraproject.org/fedora
+    command: ["chroot", "/host"]
+    args: ["bash", "/run/system-upgrade/secrets/bionic/execute.sh"]
