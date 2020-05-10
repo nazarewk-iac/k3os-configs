@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-dns
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: external-dns
+  template:
+    metadata:
+      labels:
+        app: external-dns
+    spec:
+      serviceAccountName: external-dns
+      containers:
+      - name: external-dns
+        image: nazarewk/external-dns-arm64:v0.7.1
+        imagePullPolicy: Always
+
+        args:
+        - --source=ingress
+        - --domain-filter=$(DOMAIN)
+        - --provider=cloudflare
+        - --cloudflare-proxied
+        env:
+        - name: DOMAIN
+          valueFrom:
+            secretKeyRef:
+              name: cloudflare-credentials
+              key: DOMAIN
+        - name: CF_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: cloudflare-credentials
+              key: CF_API_KEY
+
+        - name: CF_API_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: cloudflare-credentials
+              key: CF_API_EMAIL
+
+      volumes:
+      - name: cloudflare-credentials
+        secret:
+          secretName: cloudflare-credentials

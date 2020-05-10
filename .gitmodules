@@ -1,0 +1,3 @@
+[submodule "external-dns/external-dns-arm64"]
+	path = external-dns/external-dns-arm64
+	url = git@github.com:nazarewk-iac/external-dns-arm64.git
