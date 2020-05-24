@@ -1,0 +1,37 @@
+global:
+  tlsDisable: true
+
+server:
+  image:
+    tag: 1.4.2
+
+  ha:
+    enabled: true
+    raft:
+      enabled: true
+
+  readinessProbe:
+    enabled: true
+
+  dataStorage:
+    storageClass: rook-resilient
+
+  ingress:
+    enabled: true
+
+    annotations: |-
+      external-dns.alpha.kubernetes.io/target: nazarewk.pw
+
+    hosts:
+    - host: vault.nazarewk.pw
+      paths:
+      - /
+
+injector:
+  enabled: false
+
+  revokeOnShutdown: true
+  image:
+    repository: nazarewk/vault-k8s-arm64
+    tag: "v0.3.0"
+    pullPolicy: Always

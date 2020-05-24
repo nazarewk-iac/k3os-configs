@@ -8,5 +8,8 @@ commonLabels:
   component: block-storage
 
 resources:
-- block-pool.yaml
-- storage-class.yaml
+- resilient.yaml
+- volatile.yaml
+
+patchesStrategicMerge:
+- patch-default.yaml

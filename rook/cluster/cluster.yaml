@@ -13,8 +13,12 @@ spec:
     enabled: true
   storage:
     useAllNodes: true
-    useAllDevices: true
+    useAllDevices: false
+    devicePathFilter: '^/dev/disk/by-id/usb-SanDisk_Ultra_USB_3.0_.*'
     config:
+      databaseSizeMB: "1024"
+      journalSizeMB: "1024"
       osdsPerDevice: "1"
+      storeType: bluestore
   disruptionManagement:
     managePodBudgets: true

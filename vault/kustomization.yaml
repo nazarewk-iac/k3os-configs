@@ -8,4 +8,4 @@ commonLabels:
 
 resources:
 - namespace.yaml
-- chart.yaml
+- manifests.yaml

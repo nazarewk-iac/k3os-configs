@@ -10,3 +10,7 @@ operator.yaml:
 .PHONY: logs
 logs:
 	kubectl -n rook-ceph logs -l app=rook-ceph,component=operator -f
+
+.PHONY: restart
+restart:
+	kubectl -n rook-ceph delete pod -l app=rook-ceph,component=operator
