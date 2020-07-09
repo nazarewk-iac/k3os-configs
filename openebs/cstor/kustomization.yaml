@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: openebs-system
+
+commonLabels:
+  app.kubernetes.io/name: openebs
+  app.kubernetes.io/component: cstor
+
+resources:
+- storage-pool-claim.yaml
+- storage-class-replicated-2.yaml
+- storage-class-default.yaml
