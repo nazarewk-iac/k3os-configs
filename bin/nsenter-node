@@ -2,13 +2,24 @@
 # slightly modified https://github.com/alexei-led/nsenter/blob/master/nsenter-node.sh
 set -x
 
-node=${1}
+if [ "${1}" = --kill ] ; then
+  kubectl delete pod -A -l app=nsenter
+  exit
+fi
+
+node="${1}"
 nodeName=$(kubectl get node ${node} -o template --template='{{index .metadata.labels "kubernetes.io/hostname"}}') 
 nodeSelector='"nodeSelector": { "kubernetes.io/hostname": "'${nodeName:?}'" },'
-podName=${USER}-nsenter-${node}
+podName="${USER}-nsenter-${node}-$(uuidgen)"
+namespace=kube-system
 
-kubectl run ${podName:?} --restart=Never -it --rm --image overriden --overrides '
+kubectl run ${podName:?} --namespace "${namespace}" --restart=Never -it --rm --attach --image overriden --overrides '
 {
+  "metadata": {
+    "labels": {
+      "app": "nsenter"
+    }
+  },
   "spec": {
     "hostPID": true,
     "hostNetwork": true,
@@ -36,4 +47,4 @@ kubectl run ${podName:?} --restart=Never -it --rm --image overriden --overrides 
       }
     ]
   }
-}' --attach "$@"
+}'
