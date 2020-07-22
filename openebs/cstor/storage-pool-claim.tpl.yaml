@@ -6,7 +6,7 @@ metadata:
     cas.openebs.io/config: |
       - name: PoolResourceLimits
         value: |-
-            memory: 3Gi
+            memory: 2Gi
 spec:
   name: cstor-disk-pool
   type: disk

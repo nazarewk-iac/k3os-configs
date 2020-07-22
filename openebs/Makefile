@@ -8,7 +8,7 @@ apply: deps
 deps: openebs-operator.yaml
 
 openebs-operator.yaml: helm-repo
-	helm template --version "${OPENEBS_VERSION}" --values values.yaml --namespace openebs-system openebs-system openebs/openebs > "$@"
+	helm template --version "${OPENEBS_VERSION}" --values values.yaml --namespace openebs openebs openebs/openebs > "$@"
 
 clean:
 	rm openebs-operator.yaml

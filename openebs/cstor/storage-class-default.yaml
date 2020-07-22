@@ -3,10 +3,11 @@ kind: StorageClass
 metadata:
   name: cstor-default
   annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
     openebs.io/cas-type: cstor
     cas.openebs.io/config: |
       - name: StoragePoolClaim
         value: "cstor-disk-pool"
       - name: ReplicaCount
-        value: "2"
+        value: "1"
 provisioner: openebs.io/provisioner-iscsi
