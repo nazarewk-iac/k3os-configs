@@ -1,4 +1,4 @@
-OPENEBS_VERSION ?= 1.11.0
+OPENEBS_VERSION ?= 1.12.0
 
 all: deps
 

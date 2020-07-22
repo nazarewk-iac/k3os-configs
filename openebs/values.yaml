@@ -17,12 +17,12 @@ snapshotOperator:
     image: "openebs/snapshot-provisioner-arm64"
 
 ndm:
-  image: "openebs/node-disk-manager-arm64"
+  image: "openebs/node-disk-manager"
   filters:
     includePaths: "/dev/sda"
 
 ndmOperator:
-  image: "openebs/node-disk-operator-arm64"
+  image: "openebs/node-disk-operator"
 
 webhook:
   image: "openebs/admission-server-arm64"
